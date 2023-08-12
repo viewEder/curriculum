@@ -45,7 +45,7 @@ THIRD_PARTY_APPS = [
     ]
 
 LOCAL_APPS = [
-    # 'registration',
+    'registration',
     'core',
     ]
 
@@ -123,23 +123,25 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
-STATIC_URL = "assets/"
-
-# # Configuración para archivos multimedia una ruta:
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')  # Guarda los ficheros en media
-# MEDIA_URL = '/media/'
-
-# # Controlador de archivos static y media:
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'assets')
-# ]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ---------------------------------- MIS CONFIGURACIONES ----------------------------------
+
+AUTH_USER_MODEL = 'registration.User'
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = "assets/"
+
+# Configuración para archivos multimedia una ruta:
+MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media/')  # Guarda los ficheros en media
+MEDIA_URL = '/media/'
+
+# Controlador de archivos static y media:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'assets')
+]
