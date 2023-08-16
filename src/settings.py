@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'registration',
     'core',
+    'datauser',
     ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -145,3 +146,5 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets')
 ]
+
+LOGIN_REDIRECT_URL = "/admin/"
