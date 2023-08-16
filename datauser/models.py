@@ -124,3 +124,9 @@ class Facts(models.Model):
     value = models.PositiveIntegerField(verbose_name='Total')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Hechos'
+
+    def __str__(self):
+        return f'{self.fact}'
