@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block titulo %}LandingPage Index{% endblock %}
+{% load static %}
+
+{% block contenido %}
+
+    {% for academy in object_list|dictsortreversed:"pk" %}
+        <div class="resume-item">
+            <h4>{{ academy.degree_obtained }}</h4>
+            <h5> {{academy.start_date|date:"Y"}} - {{ academy.finish_date|date:"Y" }}</h5>
+            <p><em>{{ academy.academy_name }}</em></p>
+        </div>
+    {% empty %}
+        <div class="resume-item">
+            <p><em>No se encontró ningún registro académico</em></p>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+

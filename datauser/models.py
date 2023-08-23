@@ -63,6 +63,7 @@ class Academy(models.Model):
     type_degree = models.CharField(verbose_name='Tipo de Educación', choices=ESTUDIOS, max_length=150)
     academy_name = models.CharField(verbose_name='Institución Educativa', max_length=150)
     degree_obtained = models.CharField(verbose_name='Grado Obtenido',  max_length=50)
+    start_date = models.DateField(verbose_name='Fecha de Inicio de Estudios', null=True, blank=True)
     finish_date = models.DateField(verbose_name='Fecha de Graduación', null=True, blank=True)
     in_progress = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

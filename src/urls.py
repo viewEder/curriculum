@@ -24,7 +24,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('core.urls')),
     # Para implementar el login
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    # datauser:
+    path('users/',include('datauser.urls')),
+    # registration
+    path('user/',include('registration.urls')),
     
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
