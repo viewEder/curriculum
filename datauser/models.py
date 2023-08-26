@@ -83,8 +83,6 @@ class HobbiesExtras(models.Model):
     hobby = models.CharField(verbose_name='Afición/Pasatiempo', max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Hobbies - Extras'

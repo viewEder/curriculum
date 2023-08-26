@@ -10,16 +10,15 @@
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="d-flex flex-column">
-
       <div class="profile">
         <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle col-6">
         <h1 class="text-light"><a href="index.html">{{ request.user.first_name }} {{ request.user.last_name }}</a></h1>
         <div class="social-links mt-3 text-center">
-          <a href="https://github.com/EderLara" target="_blank" class="twitter"><i class="bx bxl-github"></i></a>
-          <a href="#" class="facebook"><i class="bx bxl-gitlab"></i></a>
-          <!-- <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> -->
-          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-          <a href="https://www.linkedin.com/in/eder-lara-trujillo-659047125/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          {% for item in links %}      
+            <a href="{{ item }}" target="_blank" class="linkedin">
+                  <i class="bx bxl-internet-explorer"></i>
+            </a>
+          {% endfor %}
         </div>
       </div>
 
@@ -63,7 +62,7 @@
 
         <div class="row">
           <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/profile-img.jpg" class="img-fluid" alt="">
+            <img src="{{ request.user.photo.url }}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
             <h3>Ingeniero de datos &amp; Web Developer.</h3>
@@ -94,6 +93,38 @@
             </p>
           </div>
         </div>
+    
+        {% for item in academia|dictsortreversed:"id" %}
+          <p>Type Degree: {{ item.type_degree }}</p>
+          <p>Academy Name: {{ item.academy_name }}</p>
+          <p>Degree Obtained: {{ item.degree_obtained }}</p>
+          <p>Start Date: {{ item.start_date }}</p>
+          <p>Finish Date: {{ item.finish_date }}</p>
+          <p>In Progress: {{ item.in_progress }}</p>
+          <br>
+        {% endfor %}
+
+        {% for item in proyectos|dictsortreversed:"id" %}
+          <p>Type Degree: {{ item.stack }}</p>
+          <p>Academy Name: {{ item.name_project }}</p>
+          <p>Degree Obtained: {{ item.resume_project }}</p>
+          <p>Start Date: {{ item.url_repo }}</p>
+          <p>Finish Date: {{ item.year_production }}</p>
+          <p>In Progress: {{ item.developing }}</p>
+          <br>
+        {% empty %}
+          <p>No hay items en la lista.</p>
+        {% endfor %}
+
+        {% for item in habilidades|dictsortreversed:"id" %}
+          <p>Type Degree: {{ item.skill }}</p>
+          <p>Academy Name: {{ item.level }}</p>
+          <p>Degree Obtained: {{ item.description }}</p>
+          <br>
+        {% empty %}
+          <p>No hay items en la lista.</p>
+        {% endfor %}
+
 
       </div>
     </section><!-- End About Section -->

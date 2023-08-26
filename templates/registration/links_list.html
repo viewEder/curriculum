@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block titulo %}LandingPage Index{% endblock %}
+{% load static %}
+{% block contenido %}
+    {% for item in object_list %}
+        <a href="{{ item.link }}" target="_blank" class="linkedin">
+                <i class="bx bxl-internet-explorer"></i>
+        </a>
+    {% empty %}
+        <a href="{% url 'perfil' %}">No se encontró nada</a>
+    {% endfor %}
+{% endblock %}

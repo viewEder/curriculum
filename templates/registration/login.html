@@ -2,11 +2,11 @@
 {% block titulo %}LandingPage Index{% endblock %}
 {% load static %}
 
-{% block css %}<link rel="stylesheet" href="{% static 'css/stylelogin.css' %}">{% endblock %}
+<!-- <link rel="stylesheet" href="{% static 'css/stylelogin.css' %}"> -->
 
 {% block contenido %}
 
-        <main class="form-signin w-100 m-auto">
+        <main class="form-signin w-25 m-auto mt-5">
             <form method="POST">
                 {% csrf_token %}
                 <div class="text-center">

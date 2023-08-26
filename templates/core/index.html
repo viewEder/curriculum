@@ -1,19 +1,27 @@
 {% extends 'core/base.html' %}
 {% block titulo %}LandingPage Index{% endblock %}
 {% load static %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/miestilo.css' %}">{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/miestilo.css' %}">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/skeleton.css' %}">
+{% endblock %}
 
 
 {% block contenido %}
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-  <div class=".sections heros">
+  <div class="sections heros">
     <div class="container">
       <div class="row">
         <div class="one-half column">
           <h4 class="hero-heading">Stop coding non-responsive sites. Let users view sites from anywhere.</h4>
-          <a class="button button-primary" href="http://getskeleton.com">Try Skeleton</a>
+          {% if request.user.is_authenticated %}
+            <a class="button button" href="{% url 'perfil' %}">Ir a tu perfil</a>
+          {% else %}
+            <a class="button button-primary" href="{% url 'login' %}">Ingresar</a>
+          {% endif %}
         </div>
         <div class="one-half column phones">
           <img class="phone" src="{% static 'media/img/iphone.png' %}">
@@ -23,7 +31,7 @@
     </div>
   </div>
 
-  <div class=".sections values">
+  <div class="sections values">
     <div class="container">
       <div class="row">
         <div class="one-third column value">
@@ -45,7 +53,7 @@
     </div>
   </div>
 
-  <div class=".sections get-help">
+  <div class="sections get-help">
     <div class="container">
       <h3 class="section-heading">Need help getting started?</h3>
       <p class="section-description">Skeleton is an amazingly easy place to start with responsive development. If you want to learn more, just visit the documentation!</p>
@@ -53,18 +61,10 @@
     </div>
   </div>
 
-  <div class=".sections categories">
+  <div class="sections categories">
     <div class="container">
-      <h3 class="section-heading">Responsive Images</h3>
-      <p class="section-description">Skeleton images sit easily in grid with .u-max-full-width class. I suggest exploring solution to serving different images based on device size.</p>
-      <div class="row">
-        <div class="one-half column category">
-          <img class="u-max-full-width" src="images/placeholder.png">
-        </div>
-        <div class="one-half column category">
-          <img class="u-max-full-width" src="images/placeholder.png">
-        </div>
-      </div>
+      
+      
     </div>
   </div>
 
