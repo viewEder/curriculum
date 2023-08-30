@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import datetime
 from django.views.generic.base import TemplateView
 from .models import User, Links, Excerp
 from datauser.models import Academy, ProjectDev, Skills, EmploymentHistory, HobbiesExtras, Facts
@@ -7,28 +8,64 @@ from datauser.models import Academy, ProjectDev, Skills, EmploymentHistory, Hobb
 class ProfileUserView(TemplateView):
     # Template:
     template_name = 'registration/profile.html'  
-    links = []
-    hobbies = []
+    links_list = []
+    excerp_list = []
+    hobbies_list = []
     academy_list = []
     project_list = []
     skill_list = []
     employment_list = []
     facts_list = []
+    age_user = 0
+
+    def get_edad(self, fecha_nacimiento):
+        
+        try:
+            if datetime.now().month <= fecha_nacimiento.month and datetime.now().day <= fecha_nacimiento.day:
+                # Si el mes y el día actual es menor o igual al del nacimiento
+                edad = (datetime.now().year-1) - fecha_nacimiento.year
+            else:
+                edad = datetime.now().year - fecha_nacimiento.year
+        except:
+            edad = 'No es posible calcular la edad'
+
+        return edad
+
 
     def get(self, request, *args, **kwargs): 
-        links_user = Links.objects.filter(user = request.user)
-        hobbies_user = HobbiesExtras.objects.filter(user = request.user)
-        academy_users = Academy.objects.filter(user =request.user)
-        project_user = ProjectDev.objects.filter(user = request.user)
-        skills_user = Skills.objects.filter(user = request.user)
-        employment_user = EmploymentHistory.objects.filter(user = request.user)
-        facts_user = Facts.objects.filter(user = request.user)
+        links_user = Links.objects.filter(user = request.user.id)
+        excerp_user = Excerp.objects.filter(user = request.user.id)
+        hobbies_user = HobbiesExtras.objects.filter(user = request.user.id)
+        academy_users = Academy.objects.filter(user = request.user.id)
+        project_user = ProjectDev.objects.filter(user = request.user.id)
+        skills_user = Skills.objects.filter(user = request.user.id)
+        employment_user = EmploymentHistory.objects.filter(user = request.user.id)
+        facts_user = Facts.objects.filter(user = request.user.id)
+
+        # Para calcular la fecha de nacimiento:
+        user = request.user
+        fechanace = user.birthday
+        self.age_user = self.get_edad(fechanace)
         
         # Enlaces (links):
         for item in links_user:
-            if item.link not in self.links:
-                 self.links.append(item.link)
+            link = {
+                'type_link': item.type_link,
+                'link': item.link
+            }
+            if link not in self.links_list:
+                 self.links_list.append(link)
         
+        # Resumen (excerps):
+        for item in excerp_user:
+            excerp = {
+                'excerption_type': item.excerption_type,
+                'content': item.content
+            }
+
+            if excerp not in self.excerp_list:
+                self.excerp_list.append(excerp)
+
         # Hobbies de usuario:
         for hobbies in hobbies_user:
             if hobbies.hobby not in self.hobbies:
@@ -66,6 +103,16 @@ class ProfileUserView(TemplateView):
 
         # Por Habilidades de usuario:
         for item in skills_user:
+            # Cambiamos el valor de texto a numérico:
+            if item.level == 'Basico':
+                item.level = 25
+            if item.level == 'Intermedio':
+                item.level = 50
+            if item.level == 'Alto':
+                item.level = 75
+            if item.level == 'Avanzado':
+                item.level = 100
+            # Agregamos el skill al diccionario: 
             skill = {
                 'id': item.id,
                 'skill': item.skill,
@@ -105,10 +152,12 @@ class ProfileUserView(TemplateView):
 
 
         # Retornamos todos los valores obtenidos en el diccionario de contexto:
-        return render(request, self.template_name, context = { 'links': self.links, 
+        return render(request, self.template_name, context = { 'links': self.links_list,
+                                                               'excerp': self.excerp_list, 
                                                                'academia': self.academy_list,
                                                                'proyectos': self.project_list,
                                                                'habilidades': self.skill_list,
                                                                'empleos': self.employment_list,
-                                                               'hechos': self.facts_list
+                                                               'hechos': self.facts_list,
+                                                               'edad': self.age_user
                                                              })

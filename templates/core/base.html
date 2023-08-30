@@ -21,6 +21,8 @@
       <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
       <!-- Template Main CSS File -->
       <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+        
       
     {% else %}
       {% block css %}{% endblock %}
@@ -40,9 +42,14 @@
       <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
       <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
       <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+      <script src="{% static 'vendor/typed.js/typed.js' %}"></script>
+      <script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+      <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
 
       <!-- Template Main JS File -->
       <script src="{% static 'js/main.js' %}"></script>
+      <script type="text/javascript" src='{% static "ckeditor/ckeditor-init.js" %}'></script>
+      <script type="text/javascript" src='{% static "ckeditor/ckeditor/ckeditor.js" %}'></script> 
     {% else %}
       {% block js %}{% endblock %}
     {% endif %}
