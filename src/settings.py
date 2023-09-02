@@ -151,6 +151,8 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = "perfil"
 
+LOGOUT_REDIRECT_URL = "inicio"
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',

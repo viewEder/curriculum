@@ -78,6 +78,7 @@ class ProfileUserView(TemplateView):
                     'type_degree' : item.type_degree,
                     'academy_name' : item.academy_name,
                     'degree_obtained' : item.degree_obtained,
+                    'degree_esp': item.degree_esp,
                     'start_date' : item.start_date,
                     'finish_date' : item.finish_date,
                     'in_progress' : item.in_progress

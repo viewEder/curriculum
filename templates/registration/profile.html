@@ -36,7 +36,6 @@
             <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Acerca de mi</span></a></li>
             <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Experiencia</span></a></li>
             <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portafolio</span></a></li>
-            <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Servicios</span></a></li>
             <li><a href="/admin/" class="nav-link scrollto"><i class="bx bx-cog"></i> <span>Admin</span></a></li>
             <li><a href="/admin/logout/" class="nav-link scrollto"><i class="bx bx-power-off"></i> <span>Cerrar Sesión</span></a></li>
           </ul>
@@ -196,7 +195,7 @@
             <div class="resume-item pb-0">
               <h4>{{ request.user.first_name }} {{ request.user.last_name }}</h4>
               {% for item in excerp %}
-                {% if item.excerption_type == 5 %}
+                {% if item.excerption_type == 6 %}
                   <p>{{ item.content|safe }}</p>
                 {% endif %}
               {% endfor %}
@@ -208,48 +207,88 @@
             </div>
 
             <h3 class="resume-title">Educación</h3>
+            {% for school in academia|dictsortreversed:"id" %}
+            
             <div class="resume-item">
-              <h4>Master of Analitycs View and BigData</h4>
-              <h5>2017 - 2019</h5>
-              <p><em>Universidad Internacional de la Rioja, UNIR, La Rioja España</em></p>
-              <p>Desarrollo BigData y Analitica avanzada</p>
+              <h4>{{ school.degree_obtained }}</h4>
+              <h5>{{ school.start_date|date:"Y" }} - 
+                {% if school.in_progress %}
+                  Actualmente estudiando
+                {% else %}
+                  {{ school.finish_date|date:"Y" }}
+                {% endif %}
+              </h5>
+              <p><em>{{ school.academy_name }}</em></p>
+              <p>{{ school.degree_esp }}</p>
             </div>
-            <div class="resume-item">
-              <h4>Ingeniería de Sistemas</h4>
-              <h5>2000 - 2007</h5>
-              <p><em>Universidad del Tolima, Ibagué Tolima</em></p>
-              <p>Profesional de sistemas con énfasis en Bases de Datos</p>
-            </div>
+            {% endfor %}
           </div>
+
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <h3 class="resume-title">Professional Experience</h3>
+            {% for job in empleos %}
             <div class="resume-item">
-              <h4>Analista de Gestion de Sistemas</h4>
-              <h5>2021 - Present</h5>
-              <p><em>Experion, New York, NY </em></p>
-              <ul>
-                <li>Supervisor de contratos a proveedores</li>
-                <li>Analista de proyecto BI </li>
-                <li>Soporte a Plataforma BI</li>
-                <li>Repartir Tintos</li>
-              </ul>
+              <h4>{{ job.position }}</h4>
+              <p>{{ job.job_description|safe }}</p>
+              <h5>{{ job.start_date| date:"Y" }} -
+                {% if job.end_date %} 
+                  {{ job.end_date| date:"Y" }}
+                {% else %}
+                  Actualmente en la empresa
+                {% endif %}
+              </h5>
             </div>
-            <div class="resume-item">
-              <h4>Graphic design specialist</h4>
-              <h5>2017 - 2018</h5>
-              <p><em>Stepping Stone Advertising, New York, NY</em></p>
-              <ul>
-                <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-                <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-                <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-                <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
-              </ul>
-            </div>
+            {% empty %}
+              <h4>Sin Experiencia</h4>
+              <p>Estaré encantado de iniciar mi experiencia en su empresa.</p>
+            {% endfor %}
           </div>
         </div>
 
       </div>
     </section><!-- End Resume Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="portfolio" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Portafolio</h2>
+            {% for item in excerp %}
+              {% if item.excerption_type == 5 %}
+                <p>{{ item.content|safe }}</p>
+              {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="row">
+          {% for project in proyectos %}
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+              <div class="icon"><i class="bi bi-briefcase"></i></div>
+              <h4 class="title"><a href="">{{ project.name_project }}</a></h4>
+              <h5 class="title">
+                {% if project.year_production %} 
+                  {{ project.year_production }}
+                {% else %}
+                  Actualmente en Desarrollo
+                {% endif %}
+              </h5>
+              <p class="description">
+                {{ project.resume_project }} <br>
+                <span><small><a href="{{ project.url_repo }}" target="_blank">http://repositorio.com/</a></small></span>
+              </p>
+            </div>
+          {% empty %}
+            <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+              <div class="icon"><i class="bi bi-briefcase"></i></div>
+              <h4 class="title"><a href="">Sin participación en Proyectos</a></h4>
+              <p class="description">A pesar de contar con experiencia en proyectos, deseo participar activamente en los que trabaja su empresa</p>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
     
     </main>
   {% else %}

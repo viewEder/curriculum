@@ -1,5 +1,7 @@
 from django.db import models
 from registration.models import User
+# Importamos la libreria de texto enriquecido:
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Stack(models.Model):
@@ -36,7 +38,7 @@ class EmploymentHistory(models.Model):
     stack = models.ManyToManyField(Stack, verbose_name="Tecnologias Usadas")
     company = models.CharField(verbose_name='Empresa',max_length=256)
     position = models.CharField(verbose_name='Cargo', max_length=150)
-    job_description = models.TextField(verbose_name='Funciones Desempeñadas')
+    job_description = RichTextField(verbose_name='Funciones Desempeñadas')
     start_date = models.DateField(verbose_name='Fecha de Inicio')
     end_date = models.DateField(verbose_name='Fecha de Culminación', null=True, blank=True)
     still_work = models.BooleanField(default=False, verbose_name='Aún trabajo allí')
@@ -63,6 +65,7 @@ class Academy(models.Model):
     type_degree = models.CharField(verbose_name='Tipo de Educación', choices=ESTUDIOS, max_length=150)
     academy_name = models.CharField(verbose_name='Institución Educativa', max_length=150)
     degree_obtained = models.CharField(verbose_name='Grado Obtenido',  max_length=50)
+    degree_esp = models.CharField(verbose_name='Especialidad del Grado',  max_length=50, null=True, blank=True)
     start_date = models.DateField(verbose_name='Fecha de Inicio de Estudios', null=True, blank=True)
     finish_date = models.DateField(verbose_name='Fecha de Graduación', null=True, blank=True)
     in_progress = models.BooleanField(default=False)
