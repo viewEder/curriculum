@@ -1,8 +1,14 @@
+from typing import Optional, Type
+from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from datetime import datetime
 from django.views.generic.base import TemplateView
+from django.views.generic import CreateView
 from .models import User, Links, Excerp
 from datauser.models import Academy, ProjectDev, Skills, EmploymentHistory, HobbiesExtras, Facts
+from .forms import SingUpUserFormWithEmail
+from django.urls import reverse_lazy
+from django import forms
 
 # Create your views here.
 class ProfileUserView(TemplateView):
@@ -162,3 +168,21 @@ class ProfileUserView(TemplateView):
                                                                'hechos': self.facts_list,
                                                                'edad': self.age_user
                                                              })
+
+
+class SignUpUserView(CreateView):
+    form_class= SingUpUserFormWithEmail
+    template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse_lazy('login') + '?register'   
+
+    def get_form(self, form_class= None):
+        form = super(SignUpUserView, self).get_form()
+        # Agregamos estilos al formulario a través de widgets:
+        form.fields['username'].widget = forms.TextInput(attrs={'placeholder':'NickName', 'class':'form-control mb-2'})
+        form.fields['email'].widget = forms.EmailInput(attrs={'placeholder':'email@mail.com', 'class':'form-control mb-2'})
+        form.fields['password1'].widget = forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Password'})
+        form.fields['password2'].widget = forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Confirma el Password'})
+
+        return form

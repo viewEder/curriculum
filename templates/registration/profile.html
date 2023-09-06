@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %}
-{% block titulo %}LandingPage Index{% endblock %}
+{% block titulo %}{{ request.user.first_name }}'s Portfolio{% endblock %}
 {% load static %}
 
 {% block contenido %}
@@ -11,7 +11,11 @@
     <header id="header">
       <div class="d-flex flex-column">
         <div class="profile">
-          <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle col-6">
+          {% if request.user.photo %}
+            <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle col-6">
+          {% else %}
+            <img src="{% static 'media/img/user-default.png' %}" alt="Foto usario por defecto" class="img-fluid rounded-circle col-6">
+          {% endif %}
           <h1 class="text-light"><a href="index.html">{{ request.user.first_name }} {{ request.user.last_name }}</a></h1>
           <div class="social-links mt-3 text-center">
             {% for item in links %}   
@@ -71,7 +75,11 @@
 
           <div class="row">
             <div class="col-lg-4" data-aos="fade-right">
-              <img src="{{ request.user.photo.url }}" class="img-fluid" alt="">
+              {% if request.user.photo %}
+                <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle col-6">
+              {% else %}
+                <img src="{% static 'media/img/user-default.png' %}" alt="Foto usario por defecto" class="img-fluid rounded-circle col-6">
+              {% endif %}
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
               <h3>{{ request.user.ocupation_job }}</h3>

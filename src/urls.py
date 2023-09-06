@@ -29,6 +29,8 @@ urlpatterns = [
     path('users/',include('datauser.urls')),
     # registration
     path('user/',include('registration.urls')),
+    # perfiles
+    path('users/',include('perfiles.urls')),
     
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

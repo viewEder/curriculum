@@ -1102,3 +1102,8 @@ section {
     padding-right: 20px 15px;
   }
 }
+
+.errorlist li {
+  color: red !important;
+  text-decoration: none;
+}
