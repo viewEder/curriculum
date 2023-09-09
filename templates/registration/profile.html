@@ -12,9 +12,9 @@
       <div class="d-flex flex-column">
         <div class="profile">
           {% if request.user.photo %}
-            <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle col-6">
+            <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle">
           {% else %}
-            <img src="{% static 'media/img/user-default.png' %}" alt="Foto usario por defecto" class="img-fluid rounded-circle col-6">
+            <img src="{% static 'media/img/user-default.png' %}" alt="Foto de perfil" class="img-fluid rounded-circle">
           {% endif %}
           <h1 class="text-light"><a href="index.html">{{ request.user.first_name }} {{ request.user.last_name }}</a></h1>
           <div class="social-links mt-3 text-center">
@@ -76,9 +76,9 @@
           <div class="row">
             <div class="col-lg-4" data-aos="fade-right">
               {% if request.user.photo %}
-                <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid rounded-circle col-6">
+                <img src="{{ request.user.photo.url }}" alt="Foto de perfil" class="img-fluid">
               {% else %}
-                <img src="{% static 'media/img/user-default.png' %}" alt="Foto usario por defecto" class="img-fluid rounded-circle col-6">
+                <img src="{% static 'media/img/user-default.png' %}" alt="Foto usario por defecto" class="img-fluid">
               {% endif %}
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
