@@ -1,9 +1,13 @@
 from datetime import date, datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from registration.models import User
+# Envio del correo Electronico:
+from django.core.mail import EmailMessage
+from django.urls import reverse
+from contacto.forms import ContactoForm
 
 
 # Create your views here.
@@ -16,9 +20,37 @@ class UserDetailView(DetailView):
     model = User
     template_name = 'perfiles/user_detail.html'
     age_user = 0
+    contacto_form = ContactoForm()
 
     def get_object(self):
         return get_object_or_404(User, username=self.kwargs['username'])
+    
+    def post(self, request, *args, **kwargs):
+        
+        # Envio del correo electronico:
+        if request.method == 'POST':
+            self.contacto_form = ContactoForm(data=request.POST)
+
+            if self.contacto_form.is_valid():
+                email = request.POST.get('email', '')
+                name = request.POST.get('name', '')
+                subject = request.POST.get('subject', '')
+                message = request.POST.get('message', '')
+
+                email = EmailMessage(
+                subject,
+                "De {} <{}>\n\nEscribió:\n\n{}".format(name, email, message),
+                "no-contestar@inbox.mailtrap.io",
+                ["ederlatru@gmail.com"],
+                reply_to = [email]
+            )
+            
+            try:
+                email.send()
+                return redirect(reverse('usuarios')+'?ok')
+            except:
+                # Algo no va bien
+                return redirect(reverse('usuarios')+'?fail')
     
     def get_edad(self, fecha_nacimiento):
         try:
@@ -47,6 +79,8 @@ class UserDetailView(DetailView):
         self.age_user = self.get_edad(usuario_fechanace)
         academia = data.academy_set.all()
 
+               
+        contexto['form'] = self.contacto_form
 
         contexto['links'] = links
         contexto['excerp'] = excerp
