@@ -19,6 +19,7 @@ from django.urls import path, include
 # Opciones para ver imagenes:
 from django.conf import settings
 from django.conf.urls.static import static
+from messenger.urls import messenger_patterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -33,6 +34,8 @@ urlpatterns = [
     path('users/',include('perfiles.urls')),
     # contacto:
     path('users/contacto', include('contacto.urls')),
+    # messenger:
+    path('chat/', include(messenger_patterns)),
     
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
